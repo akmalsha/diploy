@@ -1,0 +1,179 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Booking Success</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" />
+  <style>
+    /* Reference styles adapted */
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.42em;
+      color: #A7A1AE;
+      background-color: #1F2739;
+      margin: 0;
+      padding: 2em 0;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 80%;
+      max-width: 700px;
+      background-color: #1F2739;
+      padding: 2em;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px -6px #0E1119;
+    }
+
+    h1 {
+      font-size: 3em;
+      font-weight: 300;
+      text-align: center;
+      color: #4DC3FA;
+      margin-bottom: 0.2em;
+    }
+
+    h2 {
+      font-size: 1em;
+      font-weight: 300;
+      text-align: center;
+      color: #FB667A;
+      margin-top: 0;
+      margin-bottom: 2em;
+    }
+
+    h2 a {
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #FB667A;
+      text-decoration: none;
+    }
+
+    .success-icon {
+      font-size: 80px;
+      color: #FB667A;
+      display: block;
+      text-align: center;
+      margin-bottom: 0.5em;
+      user-select: none;
+    }
+
+    /* Info table styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #A7A1AE;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #1F2739;
+      font-weight: bold;
+      font-size: 1em;
+      color: #185875;
+      border-bottom: 2px solid #4DC3FA;
+    }
+
+    td {
+      background-color: #2C3446;
+      box-shadow: 0 2px 2px -2px #0E1119;
+      transition: background-color 0.4s ease, color 0.4s ease, transform 0.4s ease;
+    }
+
+    tr:nth-child(odd) td {
+      background-color: #323C50;
+    }
+
+    tr:hover td {
+      background-color: #464A52;
+      box-shadow: 0 6px 6px -6px #0E1119;
+      transform: translate3d(6px, -6px, 0);
+    }
+
+    td:first-child {
+      color: #FB667A;
+      font-weight: 600;
+    }
+
+    td:hover {
+      background-color: #FFF842;
+      color: #403E10;
+      font-weight: bold;
+      box-shadow:
+        #7F7C21 -1px 1px,
+        #7F7C21 -2px 2px,
+        #7F7C21 -3px 3px,
+        #7F7C21 -4px 4px,
+        #7F7C21 -5px 5px,
+        #7F7C21 -6px 6px;
+      transform: translate3d(6px, -6px, 0);
+      transition-delay: 0s;
+    }
+
+    /* Buttons styled like the links in reference */
+    .btn-container {
+      margin-top: 2em;
+      text-align: center;
+    }
+
+    .back-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #4DC3FA;
+      color: #1F2739;
+      font-weight: 700;
+      border-radius: 8px;
+      text-decoration: none;
+      margin: 0 8px;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+
+    .back-btn:hover {
+      background-color: #185875;
+      color: #FFF842;
+    }
+
+    /* Responsive: If needed, can hide less important columns */
+    @media (max-width: 800px) {
+      td:nth-child(4),
+      th:nth-child(4) {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="success-icon">✅</div>
+    <h1>Booking Successful!</h1><br>
+    <h2>Thank you for booking with us. Here are your details:</h2>
+
+    <table>
+      <tbody>
+        <tr><td>Name</td><td>{{ booking.name }}</td></tr>
+        <tr><td>Email</td><td>{{ booking.email }}</td></tr>
+        <tr><td>Age</td><td>{{ booking.age }}</td></tr>
+        <tr><td>Destination</td><td>{{ booking.destination }}</td></tr>
+        <tr><td>Date</td><td>{{ booking.date }}</td></tr>
+        <tr><td>People</td><td>{{ booking.people }}</td></tr>
+        <tr><td>Price</td><td>{{ booking.price }}</td></tr>
+      </tbody>
+    </table>
+
+    <div class="btn-container">
+      <a href="{% url 'home' %}" class="back-btn">Back to Home</a>
+      <a href="{% url 'current_booking' %}" class="back-btn">Go to Current Bookings</a>
+    </div>
+  </div>
+</body>
+</html>

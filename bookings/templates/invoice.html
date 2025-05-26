@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"> <!-- Important for UTF-8 encoding -->
+    <style>
+        body { font-family: Arial, sans-serif; }
+        h2 { color: #333; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+        .total-box {
+            margin-top: 20px;
+            padding: 15px;
+            border: 2px solid #4CAF50;
+            background-color: #e8f5e9;
+            width: 200px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #2e7d32;
+            text-align: center;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Booking Invoice</h2>
+    <p><strong>Name:</strong> {{ booking.name }}</p>
+    <p><strong>Email:</strong> {{ booking.email }}</p>
+
+    <table>
+        <tr>
+            <th>Destination</th>
+            <th>Date</th>
+            <th>People</th>
+            <th>Age</th>
+        </tr>
+        <tr>
+            <td>{{ booking.destination }}</td>
+            <td>{{ booking.date }}</td>
+            <td>{{ booking.people }}</td>
+            <td>{{ booking.age }}</td>
+        </tr>
+    </table>
+
+    <div class="total-box">
+        Total Amount: &#8377;{{ booking.price|floatformat:2 }}
+    </div>
+
+    <p style="margin-top: 20px;">Thank you for booking with us!</p>
+</body>
+</html>
