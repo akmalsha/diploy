@@ -10,10 +10,6 @@ from django.contrib import messages
 from decimal import Decimal
 
 
-
-
-
-
 def delete_all(request):
     Booking.objects.all().delete()
     return redirect('current_booking')
@@ -24,14 +20,14 @@ def currentbooking(request):
     return render(request, 'bookings/current_booking.html', {'bookings': all_bookings})
 
 
-
-
 def home(request):
     return render(request, 'home.html')
+
 
 def success(request):
     booking = Booking.objects.latest('id')  # or however you're fetching it
     return render(request, 'success.html', {'booking': booking})
+
 
 def thankyou(request):
     name = request.session.get('contact_name', 'Guest')
@@ -49,6 +45,7 @@ def thankyou(request):
         'message': message,
     })
 
+
 def booking(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -57,8 +54,8 @@ def booking(request):
         date = request.POST.get('date')
         destination = request.POST.get('destination')
         people = request.POST.get('people')
-        
-        # 💡 Clean the price: remove ₹ and comma
+
+        # Clean the price: remove ₹ and comma
         raw_price = request.POST.get('price', '0')
         cleaned_price = raw_price.replace('₹', '').replace(',', '').strip()
         try:
@@ -85,19 +82,19 @@ def booking(request):
         # Send booking confirmation email with PDF
         subject = 'Booking Confirmation with Invoice'
         message = f"""
-        Dear {name},
+Dear {name},
 
-        Thank you for your booking!
+Thank you for your booking!
 
-        We have attached your booking invoice as a PDF.
+We have attached your booking invoice as a PDF.
 
-        Destination: {destination}
-        Date: {date}
-        People: {people}
+Destination: {destination}
+Date: {date}
+People: {people}
 
-        Best regards,
-        Kerala Bliss Team
-        """
+Best regards,
+Kerala Bliss Team
+"""
 
         email_message = EmailMessage(
             subject,
@@ -109,7 +106,11 @@ def booking(request):
         if pdf_content:
             email_message.attach('invoice.pdf', pdf_content, 'application/pdf')
 
-        email_message.send(fail_silently=False)
+        try:
+            email_message.send(fail_silently=False)
+        except Exception:
+            messages.error(request, "Failed to send confirmation email. Please try again.")
+            return redirect('home')
 
         return render(request, 'success.html', {'booking': new_booking})
 
@@ -173,6 +174,9 @@ Kerala Bliss Team
                 user_email.send(fail_silently=False)
             except BadHeaderError:
                 messages.error(request, "Invalid header found.")
+                return redirect('contact')
+            except Exception:
+                messages.error(request, "Error sending email. Please try again later.")
                 return redirect('contact')
 
             # Save data to session for thank you page
