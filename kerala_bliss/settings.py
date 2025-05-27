@@ -40,7 +40,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'tourismbliss.onrender.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'https://tourism-6czb.onrender.com']
 
 
 
